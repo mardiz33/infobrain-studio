@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infobrain Studio | Auditoría SEO para PyMEs</title>
+    <meta name="description" content="Auditoría SEO gratuita para PyMEs argentinas. Hacé que tu negocio aparezca primero en Google.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .error-message { 
+            color: #dc2626; 
+            font-size: 0.875rem; 
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .error-message.show { display: block; }
+        input.error { border-color: #dc2626; outline-color: #dc2626; }
+        
+        /* Transiciones suaves para modo oscuro */
+        body, header, nav, section, footer, div, p, h1, h2, h3, h4, h5, h6, a, span, button, input, label {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 antialiased">
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- LOGO OPTIMIZADO -->
+                <a href="#" class="flex items-center space-x-3">
+                    <img 
+                        src="logo.png" 
+                        alt="Infobrain Studio" 
+                        class="h-16 w-auto object-contain dark:brightness-110"
+                        onerror="this.style.display='none'"
+                    >
+                    <span class="font-bold text-xl text-gray-900 dark:text-white hidden sm:inline">Infobrain Studio</span>
+                </a>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#servicios" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Servicios</a>
+                    <a href="#nosotros" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Nosotros</a>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" aria-label="Cambiar tema">
+                        <!-- Sun Icon -->
+                        <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        <!-- Moon Icon -->
+                        <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+
+                    <a href="#auditForm" class="bg-primary hover:bg-secondary text-white px-5 py-2.5 rounded-lg font-medium transition-colors">
+                        DIAGNÓSTICO GRATIS
+                    </a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center space-x-2 md:hidden">
+                    <button id="darkModeToggleMobile" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700" aria-label="Cambiar tema">
+                        <svg class="w-5 h-5 dark:text-yellow-500 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Abrir menú">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="#servicios" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">Servicios</a>
+                <a href="#nosotros" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">Nosotros</a>
+                <a href="#auditForm" class="block px-3 py-2 text-primary font-medium">DIAGNÓSTICO GRATIS</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-16 sm:py-24 bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                SEO Real para el mercado <span class="text-primary">Argentino</span>
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-10">
+                Hacé que tu negocio aparezca primero. Dejá de adivinar por qué no te llaman. 
+                Analizamos tu web y te decimos exactamente qué cambiar para que los clientes 
+                te encuentren a vos antes que a los demás.
+            </p>
+            <a href="#auditForm" class="inline-flex items-center justify-center bg-primary hover:bg-secondary text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-lg hover:shadow-xl">
+                QUIERO MI AUDITORÍA SIN CARGO
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="servicios" class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">¿Qué buscan tus clientes?</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            No todas las búsquedas valen lo mismo. Encontramos las palabras exactas que usa la gente 
+                            que está lista para comprar, no solo los que están "mirando".
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Web rápida y sin errores</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Si tu página es lenta, Google te castiga y el cliente se cansa. 
+                            Revisamos la parte técnica para que tu sitio vuele.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Section -->
+    <section id="nosotros" class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Nuestra forma de laburar</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-10">
+                En Infobrain Studio hablamos en criollo. Sabemos que sos dueño de un negocio 
+                y no tenés tiempo para tecnicismos innecesarios.
+            </p>
+            <div class="space-y-4 text-left max-w-2xl mx-auto">
+                <div class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span class="text-gray-700 dark:text-gray-300">Claridad total: Informes que entendés en dos minutos.</span>
+                </div>
+                <div class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span class="text-gray-700 dark:text-gray-300">Foco en ventas: No buscamos "likes", buscamos que aparezcas donde se decide la compra.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audit Form Section -->
+    <section id="auditForm" class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">¿Querés vender más hoy mismo?</h2>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Hacemos un diagnóstico completo de tu web sin cargo y te contamos por dónde empezar.
+                </p>
+            </div>
+
+            <form id="auditForm" action="https://formspree.io/f/TU_ID_AQUI" method="POST" class="space-y-6" novalidate>
+                
+                <!-- Website URL -->
+                <div>
+                    <label for="websiteUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        URL de tu web <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                        </span>
+                        <input 
+                            type="url" 
+                            id="websiteUrl" 
+                            name="websiteUrl"
+                            placeholder="Incluí el https://" 
+                            required
+                            pattern="^https?://.+\..+"
+                            class="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                        >
+                    </div>
+                    <p id="urlError" class="error-message">Por favor, ingresá una URL válida (ej: https://tusitio.com)</p>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Tu email <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </span>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            placeholder="tu@email.com" 
+                            required
+                            class="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                        >
+                    </div>
+                    <p id="emailError" class="error-message">Por favor, ingresá un email válido con dominio (ej: nombre@empresa.com.ar)</p>
+                </div>
+
+                <!-- Submit Button -->
+                <button 
+                    type="submit" 
+                    id="submitBtn"
+                    class="w-full bg-primary hover:bg-secondary text-white font-semibold py-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    <span>ENVIAR SOLICITUD</span>
+                    <svg id="loadingSpinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+
+                <!-- Feedback Messages -->
+                <div id="formMessage" class="hidden p-4 rounded-lg text-center"></div>
+            </form>
+
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+                Te respondemos en menos de 24 horas hábiles.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <img src="logo.png" alt="Infobrain Studio" class="h-10 w-auto object-contain">
+                <span class="font-bold text-lg">Infobrain Studio</span>
+            </div>
+            <p class="text-gray-400">
+                RESULTADOS REALES. SIN VUELTAS.
+            </p>
+            <p class="text-gray-500 text-sm mt-4">
+                © 2026 Infobrain Studio — SEO Estratégico para PyMEs Argentinas.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+            const html = document.documentElement;
+
+            // Check for saved dark mode preference or default to 'light'
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+
+            function toggleDarkMode() {
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    localStorage.theme = 'light';
+                } else {
+                    html.classList.add('dark');
+                    localStorage.theme = 'dark';
+                }
+            }
+
+            if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+            if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+
+            // Form validation and submission
+            const form = document.getElementById('auditForm');
+            const websiteUrl = document.getElementById('websiteUrl');
+            const email = document.getElementById('email');
+            const urlError = document.getElementById('urlError');
+            const emailError = document.getElementById('emailError');
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const formMessage = document.getElementById('formMessage');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            // Mobile menu toggle
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            function isValidUrl(string) {
+                try {
+                    const url = new URL(string);
+                    return url.protocol === 'http:' || url.protocol === 'https:';
+                } catch (_) {
+                    return false;
+                }
+            }
+
+            function isValidEmailDomain(emailValue) {
+                if (!emailValue.includes('@')) return false;
+                const domainPart = emailValue.split('@')[1];
+                if (!domainPart) return false;
+                const parts = domainPart.split('.');
+                return parts.length >= 2 && parts[parts.length - 1].length >= 2;
+            }
+
+            function showError(input, errorElement) {
+                input.classList.add('error');
+                errorElement.classList.add('show');
+            }
+            function clearError(input, errorElement) {
+                input.classList.remove('error');
+                errorElement.classList.remove('show');
+            }
+
+            websiteUrl.addEventListener('input', () => {
+                if (websiteUrl.value && !isValidUrl(websiteUrl.value)) {
+                    showError(websiteUrl, urlError);
+                } else {
+                    clearError(websiteUrl, urlError);
+                }
+            });
+
+            email.addEventListener('input', () => {
+                if (email.value && !isValidEmailDomain(email.value)) {
+                    showError(email, emailError);
+                } else {
+                    clearError(email, emailError);
+                }
+            });
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                let hasErrors = false;
+
+                if (!websiteUrl.value.trim()) {
+                    showError(websiteUrl, urlError);
+                    hasErrors = true;
+                } else if (!isValidUrl(websiteUrl.value.trim())) {
+                    showError(websiteUrl, urlError);
+                    hasErrors = true;
+                } else {
+                    clearError(websiteUrl, urlError);
+                }
+
+                if (!email.value.trim()) {
+                    showError(email, emailError);
+                    hasErrors = true;
+                } else if (!isValidEmailDomain(email.value.trim())) {
+                    showError(email, emailError);
+                    hasErrors = true;
+                } else {
+                    clearError(email, emailError);
+                }
+
+                if (hasErrors) {
+                    formMessage.textContent = 'Por favor, corregí los errores marcados.';
+                    formMessage.className = 'p-4 rounded-lg text-center bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 block';
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                loadingSpinner.classList.remove('hidden');
+                formMessage.classList.add('hidden');
+
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        formMessage.textContent = '¡Gracias! Tu solicitud fue enviada. Te contactaremos en menos de 24 horas.';
+                        formMessage.className = 'p-4 rounded-lg text-center bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 block';
+                        form.reset();
+                    } else {
+                        throw new Error('Error en el envío');
+                    }
+                } catch (error) {
+                    formMessage.textContent = 'Ocurrió un error. Por favor, intentá de nuevo o contactanos directamente.';
+                    formMessage.className = 'p-4 rounded-lg text-center bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 block';
+                } finally {
+                    submitBtn.disabled = false;
+                    loadingSpinner.classList.add('hidden');
+                }
+            });
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
